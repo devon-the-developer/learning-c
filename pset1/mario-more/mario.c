@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 void make_pyramid(int *h);
+void get_height(int *p);
 
 int main(void)
 {
@@ -11,15 +12,20 @@ int main(void)
         return 1;
     }
 
-    printf("How tall should the pyramid be? ");
-    scanf("%i", height);
-    printf("%d high\n", *height);
+    get_height(height);
 
     make_pyramid(height);
 
     free(height);
 
     return 0;
+}
+
+void get_height(int *p)
+{
+    printf("How tall should the pyramid be? ");
+    scanf("%d", p);
+    printf("%d high\n", *p);
 }
 
 void make_pyramid(int *h)
@@ -36,7 +42,7 @@ void make_pyramid(int *h)
         {
             printf("#");
         }
-        
+
         //Middle Gap
         printf("  ");
 
