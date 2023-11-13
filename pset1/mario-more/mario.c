@@ -24,9 +24,23 @@ int main(void)
 
 void make_pyramid(int *h)
 {
-    for (int i = 0; i < *h; ++i)
+    for (int boxlevel = 0; boxlevel < *h; ++boxlevel)
     {
-        for (int j = 0; j <= i; ++j)
+        int spacesneeded = *h - boxlevel;
+        for (int k = 0; k < spacesneeded; ++k)
+        {
+            printf(" ");
+        }
+
+        for (int leftboxes = 0; leftboxes <= boxlevel; ++leftboxes)
+        {
+            printf("#");
+        }
+        
+        //Middle Gap
+        printf("  ");
+
+        for (int rightboxes = 0; rightboxes <= boxlevel; ++rightboxes)
         {
             printf("#");
         }
