@@ -14,6 +14,8 @@ int main(void)
 
     get_height(height);
 
+    printf("%d high\n", *height);
+
     make_pyramid(height);
 
     free(height);
@@ -25,7 +27,10 @@ void get_height(int *p)
 {
     printf("How tall should the pyramid be? ");
     scanf("%d", p);
-    printf("%d high\n", *p);
+    if (*p <= 0)
+    {
+        get_height(p);
+    }
 }
 
 void make_pyramid(int *h)
