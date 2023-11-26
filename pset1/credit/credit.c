@@ -2,43 +2,30 @@
 #include <stdlib.h>
 
 void calculate(int maxamountcarddigits, int *sumoffirstnums, int *sumofsecondnums, long *cardnumber, int *cardlength);
-
 void which_card(int *sumoffirstnums, int *sumofsecondnums, int *cardlength, int *totalnumber);
 
 int main(void)
 {
-    int maxamountcarddigits = 16;
+    // Initiate memory for variables
     int *cardlength = malloc(sizeof(int));
-    if (cardlength == NULL)
+    int *sumofsecondnums = malloc(sizeof(int));
+    int *sumoffirstnums = malloc(sizeof(int));
+    int *totalnumber = malloc(sizeof(int));
+    long *cardnumber = malloc(2 * sizeof(long));
+
+    // Handle errors in initiating memory
+    if (cardlength == NULL || sumoffirstnums == NULL || sumofsecondnums == NULL || totalnumber == NULL || cardnumber == NULL)
     {
         return 1;
     }
 
-    int *sumofsecondnums = malloc(sizeof(int));
-    if (sumofsecondnums == NULL)
-    {
-        return 1;
-    }
-    int *sumoffirstnums = malloc(sizeof(int));
-    if (sumoffirstnums == NULL)
-    {
-        return 1;
-    }
-    int *totalnumber = malloc(sizeof(int));
-    if (totalnumber == NULL)
-    {
-        return 1;
-    }
+    // Set variables
+    int maxamountcarddigits = 16;
     *totalnumber = 0;
     *sumoffirstnums = 0;
     *sumofsecondnums = 0;
 
-    long *cardnumber = malloc(2 * sizeof(long));
-    if (cardnumber == NULL)
-    {
-        return 1;
-    }
-
+    // Ask for Card number to test
     printf("Number:");
     scanf("%ld", cardnumber);
 
@@ -51,6 +38,7 @@ int main(void)
     free(sumoffirstnums);
     free(sumofsecondnums);
     free(totalnumber);
+    free(cardlength);
 }
 
 void calculate(int maxamountcarddigits, int *sumoffirstnums, int *sumofsecondnums, long *cardnumber, int *cardlength)
@@ -61,6 +49,7 @@ void calculate(int maxamountcarddigits, int *sumoffirstnums, int *sumofsecondnum
     for (int place = 0; place < maxamountcarddigits; ++place)
     {
         long findnum = *cardnumber % power;
+
         // printf("current: %ld oddnumber: %i cardnumber: %ld cardlength: %i \n", findnum, oddnumber, *cardnumber, cardlength);
         if (oddnumber == 1)
         {
@@ -76,8 +65,10 @@ void calculate(int maxamountcarddigits, int *sumoffirstnums, int *sumofsecondnum
             // printf("seconds: %i\n", *sumofsecondnums);
             oddnumber = 1;
         }
+
         *cardnumber = *cardnumber / 10;
         *cardlength = *cardlength + 1;
+
         if (*cardnumber == 0)
         {
             break;
