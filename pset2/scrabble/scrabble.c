@@ -19,8 +19,16 @@ int main(void){
     printf("Player 2: ");
     scanf("%s", player2_word);
 
-    printf("%i \n", scoreword(player1_word));
-    printf("%i \n", scoreword(player2_word));
+    int player1_score = scoreword(player1_word);
+    int player2_score = scoreword(player2_word);
+    
+    if (player1_score > player2_score){
+        printf("Player 1 wins!\n");
+    } else if (player1_score < player2_score){
+        printf("Player 2 wins!\n");
+    } else {
+        printf("Tie!\n");
+    }
 
     free(player1_word);
     free(player2_word);
@@ -28,7 +36,6 @@ int main(void){
 }
 
 int scoreword(char *word){
-    printf("The word to score is %s \n", word);
     int wordscore = 0;
     for (int placeinword = 0; word[placeinword] != '\0'; ++placeinword){
         char lettertocheck = toupper(word[placeinword]);
