@@ -1,28 +1,34 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int counttheletters(char *text);
+int countStringValues(char *text, int *letterCount, int *sentenceCount);
 
 int main(void)
 {
-    char *grade1string = "One fish. Two fish. Red fish. Blue fish.";
+    int letterCount = 0;
+    int sentenceCount = 0;
+    char *grade1String = "One fish. Two fish. Red fish. Blue fish.";
     //printf("%s", grade1string);
-    int lettersinstring = counttheletters(grade1string);
-    printf("\n %i \n", lettersinstring);
+    countStringValues(grade1String, &letterCount, &sentenceCount);
+    printf("\n %i %i \n", letterCount, sentenceCount);
     return 0;
 }
 
-int counttheletters(char *text)
+int countStringValues(char *text, int *letterCount, int *sentenceCount)
 {
-    int count = 0;
-    for (int currentindex = 0; text[currentindex] != '\0'; ++currentindex)
+   
+    for (int currentIndex = 0; text[currentIndex] != '\0'; ++currentIndex)
     {
-        printf("%c", text[currentindex]);
-        if(isalpha(text[currentindex]))
+        printf("%c", text[currentIndex]);
+        if(isalpha(text[currentIndex]))
         {
-            ++count;
+            ++*letterCount;
+        } else if (text[currentIndex] == '.')
+        {
+            ++*sentenceCount;
         }
     }
-    return count;
-}
 
+    return 0;
+
+}
