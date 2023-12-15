@@ -12,9 +12,10 @@ int main(void)
     int wordCount = 0;
     int sentenceCount = 0;
     //char *grade1String = "One fish. Two fish. Red fish. Blue fish.";
-    char *stringToGrade = "Would you like them here or there? I would not like them here or there. I would not like them anywhere.";
+    //char *grade2String = "Would you like them here or there? I would not like them here or there. I would not like them anywhere.";
+    char *stringToGrade = "Congratulations! Today is your day. You're off to Great Places! You're off and away!";
 
-    countStringValues(stringToGrade, &letterCount, &wordCount, &sentenceCount);
+        countStringValues(stringToGrade, &letterCount, &wordCount, &sentenceCount);
     printf("\n %i %i %i \n", letterCount, wordCount, sentenceCount);
 
     // L is average number of letters per 100 words
@@ -37,11 +38,11 @@ int countStringValues(char *text, int *letterCount, int *wordCount, int *sentenc
         if(isalpha(text[currentIndex]))
         {
             ++*letterCount;
-        } else if (text[currentIndex] == '.' || text[currentIndex] == '?')
+        } else if (text[currentIndex] == '.' || text[currentIndex] == '?' || text[currentIndex] == '!')
         {
             ++*sentenceCount;
             ++*wordCount;
-        } else if (text[currentIndex] == ' ' && currentIndex != 0 && text[currentIndex - 1] != '.' && text[currentIndex -1] != '?')
+        } else if (text[currentIndex] == ' ' && currentIndex != 0 && text[currentIndex - 1] != '.' && text[currentIndex -1] != '!' )
         {
             ++*wordCount;
         }
