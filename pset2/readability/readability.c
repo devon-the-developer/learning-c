@@ -13,8 +13,8 @@ int main(void)
     int sentenceCount = 0;
     //char *grade1String = "One fish. Two fish. Red fish. Blue fish.";
     //char *grade2String = "Would you like them here or there? I would not like them here or there. I would not like them anywhere.";
-    char *stringToGrade = "Congratulations! Today is your day. You're off to Great Places! You're off and away!";
-
+    //char *grade3String = "Congratulations! Today is your day. You're off to Great Places! You're off and away!";
+    char *stringToGrade = "Harry Potter was a highly unusual boy in many ways. For one thing, he hated the summer holidays more than any other time of year. For another, he really wanted to do his homework, but was forced to do it in secret, in the dead of the night. And he also happened to be a wizard.";
         countStringValues(stringToGrade, &letterCount, &wordCount, &sentenceCount);
     printf("\n %i %i %i \n", letterCount, wordCount, sentenceCount);
 
@@ -46,7 +46,6 @@ int countStringValues(char *text, int *letterCount, int *wordCount, int *sentenc
         {
             ++*wordCount;
         }
-        //printf("%i %i %i", *letterCount, *wordCount, *sentenceCount);
     }
 
     return 0;
@@ -66,13 +65,14 @@ float calculateTextScore(float L, float S)
 
 int gradeScore(float score)
 {
-    if ((int)score < 1)
+    int roundedScore = (int)(score < 0 ? (score - 0.5) : (score + 0.5));
+    if (roundedScore < 1)
     {
         printf("Grade 1 \n");
     }
-    else if ((int)score < 16)
+    else if (roundedScore < 16)
     {
-        printf("Grade %i \n", (int)score);
+        printf("Grade %i \n", roundedScore);
     } else 
     {
         printf("Grade 16+ \n");
