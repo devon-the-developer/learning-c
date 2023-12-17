@@ -32,24 +32,46 @@ int main(void)
 
 int countStringValues(char *text, int *letterCount, int *wordCount, int *sentenceCount)
 {
-    printf("Text: %s \n", text);
-    for (int currentIndex = 0; text[currentIndex] != '\0'; ++currentIndex)
+    // Ensure that the pointers are not NULL
+    if (text == NULL || letterCount == NULL || wordCount == NULL || sentenceCount == NULL)
     {
-        if(isalpha(text[currentIndex]))
+        printf("Error: One of the pointers is NULL \n");
+        return -1;
+    }
+
+    printf("Text: %s \n", text);
+    
+    int currentIndex = 0;
+    char prevChar = ' ';
+
+    // Loop through the string
+    while (text[currentIndex] != '\0')
+    {
+        char currentChar = text[currentIndex];
+        if (isalpha(currentChar))
         {
+            // Count letters
             ++*letterCount;
-        } else if (text[currentIndex] == '.' || text[currentIndex] == '?' || text[currentIndex] == '!')
+        }
+        else if (currentChar == '.' || currentChar == '?' || currentChar == '!')
         {
+            // Count sentences and words
             ++*sentenceCount;
             ++*wordCount;
-        } else if (text[currentIndex] == ' ' && currentIndex != 0 && text[currentIndex - 1] != '.' && text[currentIndex -1] != '!' )
+        }
+        else if (currentChar == ' ' && prevChar != '.' && prevChar != '!')
         {
+            // Count words
             ++*wordCount;
         }
+
+        // Update the previous character
+        prevChar = currentChar;
+        // Move to the next character
+        ++currentIndex;
     }
 
     return 0;
-
 }
 
 float getAveragePer100Words(int numtoAveragePer100, int numofWords)
