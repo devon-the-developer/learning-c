@@ -3,13 +3,15 @@
 #include <string.h>
 #include <ctype.h>
 
-int verify_user_input(char *string);
+int verify_user_key(char *string);
+int get_text_from_user(char *string);
 
 int main(int argc, char *argv[])
 {
-    // Declaring user input variable
-    char *user_string = argv[1];
-    
+    // Declaring user key variable
+    char *user_key = argv[1];
+    char plain_text[99];
+
     // Checking for the correct number of arguments
     if (argc != 2)
     {
@@ -17,20 +19,21 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    verify_user_input(user_string);
+    verify_user_key(user_key);
+    get_text_from_user(plain_text);
 
     return 0;
 }
 
-int verify_user_input(char *string)
+int verify_user_key(char *string)
 {
-    char *user_string = string;
+    char *user_key = string;
     int current_index = 0;
 
-    // Checking the user input is of type string
-    if (user_string != NULL && user_string[0] != '\0')
+    // Checking the user key is of type string
+    if (user_key != NULL && user_key[0] != '\0')
     {
-        printf("user_string is a string\n");
+        printf("user_key is a string\n");
     }
     else
     {
@@ -38,17 +41,17 @@ int verify_user_input(char *string)
         return 1;
     }
 
-    // Checking the length of the user input
-    if (strlen(user_string) != 26)
+    // Checking the length of the user key
+    if (strlen(user_key) != 26)
     {
         printf("Key must contain 26 characters.\n");
         return 1;
     }
 
-    // Check the user input is only alphabetic characters
-    while (user_string[current_index] != '\0')
+    // Check the user key is only alphabetic characters
+    while (user_key[current_index] != '\0')
     {
-        if (isalpha(user_string[current_index]) == 0)
+        if (isalpha(user_key[current_index]) == 0)
         {
             printf("Key must only contain alphabetic characters.\n");
             return 1;
@@ -59,5 +62,14 @@ int verify_user_input(char *string)
         }
     }
 
+    return 0;
+}
+
+int get_text_from_user(char *string)
+{
+    // Get plain text from user input and store
+    char *plain_text_pointer = string;
+    printf("plaintext: ");
+    fgets(plain_text_pointer, 99, stdin);
     return 0;
 }
