@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 int verify_user_key(char *string);
 int get_text_from_user(char *string);
@@ -89,15 +90,26 @@ int convert_text(char *key, char *plain_text, char *cipher_text)
         // Check if current letter is in alphabet
         if (isalpha(letter_to_convert))
         {
-            // Convert to upper case if necessary
+            bool was_lowercase = false;
+            // Check and track if lowercase and convert to uppercase
             if (islower(letter_to_convert))
             {
+                was_lowercase = true;
                 letter_to_convert = toupper(letter_to_convert);
             }
             // Find the index of the letter in alphabet
             int letter_index_in_key = letter_to_convert - 'A';
             // Find this index in the key and add it to the cipher text
-            cipher_text[current_index] = key[letter_index_in_key];
+            if (was_lowercase)
+            {
+                // if the char was lowercase make sure the cipher is too
+                cipher_text[current_index] = tolower(key[letter_index_in_key]);
+            } 
+            else
+            {
+                // if char was uppercase make sure the cipher is too
+                cipher_text[current_index] = toupper(key[letter_index_in_key]);
+            }
         } else {
             // if not not in alphabet just leave as is.
             cipher_text[current_index] = letter_to_convert;
