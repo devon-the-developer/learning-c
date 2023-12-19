@@ -3,9 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+int get_num_voters(int *amount_of_voters, int *max_voters);
 
 int main(int argc, char *argv[])
 {
+    int max_voters = 10;
+    int amount_of_voters;
+
     if(argc < 2) 
     {
         printf("Usage: %s <candidate1> <candidate2> <candidate3> ... \n", argv[0]);
@@ -45,6 +49,20 @@ int main(int argc, char *argv[])
 
         printf("Candidate %i: %s \n", current_index + 1, candidates[current_index]);
     }
+    
+    get_num_voters(&amount_of_voters, &max_voters);
+    free(candidates);
+    return 0;
+}
 
+int get_num_voters(int *amount_of_voters, int *max_voters)
+{
+    printf("Number of voters: ");
+    scanf("%i", amount_of_voters);
+    if(*amount_of_voters > *max_voters)
+    {
+        printf("Max amount of voters is %i \n", *max_voters);
+        return 1;
+    }
     return 0;
 }
