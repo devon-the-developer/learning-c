@@ -8,7 +8,37 @@
 
 
 int get_num_voters(int *amount_of_voters);
-int ask_for_votes(int *amount_of_voters, char ***votes);
+int ask_for_votes(int *amount_of_voters, char ***votes, char **candidates, int num_candidates);
+int check_valid_vote(char *vote_to_check, char **candidates, int candidate_array_size);
+
+int check_valid_vote(char *vote_to_check, char **candidates, int candidate_array_size)
+{
+    int current_index = 0;
+    int valid_vote = 0;
+    while (valid_vote != 1 && current_index < candidate_array_size)
+    {
+        // check if current_index of candidates is == to vote_to_check
+        // if is return 0 else return 1 and message not valid vote
+        printf("Size of: %d", candidate_array_size);
+        printf("vote_to_check: %s, current_candidate: %s \n", vote_to_check, (candidates)[current_index]);
+        if (strcmp(vote_to_check, (candidates)[current_index]) == 0)
+        {
+            valid_vote = 1;
+            printf("Match \n");
+            break;
+        }
+        ++current_index;
+    }
+    if (valid_vote == 1)
+    {
+        return 0;
+    } 
+    else 
+    {
+        printf("Invalid Vote \n");
+        return 1;
+    }
+}
 
 int main(int argc, char *argv[])
 {
@@ -60,7 +90,7 @@ int main(int argc, char *argv[])
     {
         return 1;
     }
-    ask_for_votes(&amount_of_voters, &votes);
+    ask_for_votes(&amount_of_voters, &votes, candidates, num_candidates);
 
     free(votes);
     free(candidates);
@@ -80,7 +110,7 @@ int get_num_voters(int *amount_of_voters)
     return 0;
 }
 
-int ask_for_votes(int *amount_of_voters, char ***votes)
+int ask_for_votes(int *amount_of_voters, char ***votes, char **candidates, int num_candidates)
 {
     // Allocate memory for votes
     *votes = (char **)malloc(*amount_of_voters * sizeof(char *));
@@ -114,21 +144,24 @@ int ask_for_votes(int *amount_of_voters, char ***votes)
         } 
         else 
         {
-            printf("Vote: ");
-            if (fgets((*votes)[current_index], MAX_STRING_LENGTH, stdin) != NULL)
+            do
             {
-                // Remove the newline character if it exists
-                size_t len = strlen((*votes)[current_index]);
-                if (len > 0 && (*votes)[current_index][len - 1] == '\n')
+                printf("Vote: ");
+                if (fgets((*votes)[current_index], MAX_STRING_LENGTH, stdin) != NULL)
                 {
-                    (*votes)[current_index][len - 1] = '\0';
+                    // Remove the newline character if it exists
+                    size_t len = strlen((*votes)[current_index]);
+                    if (len > 0 && (*votes)[current_index][len - 1] == '\n')
+                    {
+                        (*votes)[current_index][len - 1] = '\0';
+                    }
+                    printf("Stored Vote: %s\n", (*votes)[current_index]);
                 }
-                printf("Stored Vote: %s\n", (*votes)[current_index]);
-            }
-            else 
-            {
-                printf("Error reading input. \n");
-            }
+                else 
+                {
+                    printf("Error reading input. \n");
+                }
+            } while (check_valid_vote((*votes)[current_index], candidates, num_candidates) != 0);
         }
 
     }
