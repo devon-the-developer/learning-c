@@ -4,8 +4,10 @@
 #include <string.h>
 
 #define MAX_STRING_LENGTH 20
+#define MAX_VOTERS 9
 
-int get_num_voters(int *amount_of_voters, int *max_voters);
+
+int get_num_voters(int *amount_of_voters);
 int ask_for_votes(int *amount_of_voters, char ***votes);
 
 int main(int argc, char *argv[])
@@ -54,7 +56,10 @@ int main(int argc, char *argv[])
         printf("Candidate %i: %s \n", current_index + 1, candidates[current_index]);
     }
     
-    get_num_voters(&amount_of_voters, &max_voters);
+    if (get_num_voters(&amount_of_voters) == 1)
+    {
+        return 1;
+    }
     ask_for_votes(&amount_of_voters, &votes);
 
     free(votes);
@@ -62,14 +67,14 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-int get_num_voters(int *amount_of_voters, int *max_voters)
+int get_num_voters(int *amount_of_voters)
 {
     // Get number of voters, check not more than max.
     printf("Number of voters: ");
     scanf("%i", amount_of_voters);
-    if(*amount_of_voters > *max_voters)
+    if(*amount_of_voters > MAX_VOTERS)
     {
-        printf("Max amount of voters is %i \n", *max_voters);
+        printf("Max amount of voters is %i \n", MAX_VOTERS);
         return 1;
     }
     return 0;
